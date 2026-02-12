@@ -15,14 +15,15 @@ services:
       - key: PYTHON_VERSION
         value: 3.10.0
 
-staticSites:
-  # Frontend Service
-  - name: ats-frontend
+  # Frontend Service (Static Site)
+  - type: web
+    name: ats-frontend
+    env: static
     buildCommand: |
       cd frontend
       npm install
       npm run build
-    publish: frontend/dist
+    staticPublishPath: frontend/dist
     routes:
       - type: rewrite
         source: /*
