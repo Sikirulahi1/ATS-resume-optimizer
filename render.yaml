@@ -13,7 +13,7 @@ services:
       - key: GOOGLE_API_KEY
         sync: false
       - key: PYTHON_VERSION
-        value: 3.10.0
+        value: "3.10"
 
   # Frontend Service (Static Site)
   - type: web
@@ -33,5 +33,4 @@ services:
         fromService:
           type: web
           name: ats-backend
-          property: url
-        transform: s|/|/analyze|
+          envVarKey: url
