@@ -1,0 +1,38 @@
+services:
+  # Backend Service
+  - type: web
+    name: ats-backend
+    env: python
+    buildCommand: |
+      cd backend
+      pip install -r requirements.txt
+    startCommand: |
+      cd backend
+      for /f "tokens=*" %i in ('python -c "import os; print(os.environ.get(\"PORT\", 8000))"') do set PORT=%i
+      uvicorn main:app --host 0.0.0.0 --port %PORT%
+    envVars:
+      - key: GOOGLE_API_KEY
+        sync: false
+      - key: PYTHON_VERSION
+        value: 3.10.0
+
+  # Frontend Service
+  - type: static
+    name: ats-frontend
+    env: static
+    buildCommand: |
+      cd frontend
+      npm install
+      npm run build
+    staticPublishPath: frontend/dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: ats-backend
+          property: url
+        transform: s|/|/analyze|  # Append /analyze to the backend URL
