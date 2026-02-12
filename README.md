@@ -1,4 +1,4 @@
-# ATS System - Backend & AI Engine
+# ATS System
 
 This directory contains the core intelligence of the ATS Resume Optimizer. It uses **LlamaIndex** and **Google Gemini** to perform deep semantic analysis of resumes against job descriptions.
 
