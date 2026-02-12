@@ -15,15 +15,14 @@ services:
       - key: PYTHON_VERSION
         value: 3.10.0
 
+staticSites:
   # Frontend Service
-  - type: site
-    name: ats-frontend
-    env: static
+  - name: ats-frontend
     buildCommand: |
       cd frontend
       npm install
       npm run build
-    staticPublishPath: frontend/dist
+    publish: frontend/dist
     routes:
       - type: rewrite
         source: /*
@@ -34,6 +33,4 @@ services:
           type: web
           name: ats-backend
           property: url
-        transform: s|/|/analyze|  # Append /analyze to the backend URL
-
-
+        transform: s|/|/analyze|
