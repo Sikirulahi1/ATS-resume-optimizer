@@ -35,3 +35,5 @@ services:
           name: ats-backend
           property: url
         transform: s|/|/analyze|  # Append /analyze to the backend URL
+
+
