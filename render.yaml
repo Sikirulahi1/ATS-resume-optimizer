@@ -8,8 +8,7 @@ services:
       pip install -r requirements.txt
     startCommand: |
       cd backend
-      for /f "tokens=*" %i in ('python -c "import os; print(os.environ.get(\"PORT\", 8000))"') do set PORT=%i
-      uvicorn main:app --host 0.0.0.0 --port %PORT%
+      uvicorn main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: GOOGLE_API_KEY
         sync: false
@@ -17,7 +16,7 @@ services:
         value: 3.10.0
 
   # Frontend Service
-  - type: static
+  - type: site
     name: ats-frontend
     env: static
     buildCommand: |
